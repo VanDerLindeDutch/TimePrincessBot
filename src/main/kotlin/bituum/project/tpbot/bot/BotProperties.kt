@@ -1,18 +1,20 @@
 package bituum.project.tpbot.bot
 
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.PropertySource
+import org.springframework.stereotype.Component
 
-@Configuration
+@Component
+@PropertySource("classpath:/application.properties")
 class BotProperties {
 
-    @Value("\${telegram.webhook_path}")
+    @Value("\${bot.webhook}")
     lateinit var webhookPath: String
 
-    @Value("\${telegram.bot_name}")
+    @Value("\${bot.name}")
     lateinit var name: String
 
-    @Value("\${telegram.bot_token}")
+    @Value("\${bot.token}")
     lateinit var token: String
 
 }
