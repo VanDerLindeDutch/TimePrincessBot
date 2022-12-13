@@ -17,7 +17,10 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    implementation("org.hibernate:hibernate-validator:8.0.0.Final")
+
+    implementation("org.postgresql:postgresql:42.5.1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -26,9 +29,18 @@ dependencies {
     implementation("org.telegram:telegrambots:6.3.0")
     implementation("org.telegram:telegrambotsextensions:6.3.0")
     implementation("com.vdurmont:emoji-java:4.0.0")
+    implementation("org.jetbrains.kotlin:kotlin-allopen:1.7.22")
+
+
 
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.Embeddable")
+    annotation("javax.persistence.MappedSuperclass")
 }
 
 tasks.withType<KotlinCompile> {
