@@ -7,7 +7,7 @@ class GreetingMessage(chatID: Long, userRepository: UserRepository) : SendMessag
 
     init {
         if(userRepository.findUserByChatId(chatID)==null){
-            userRepository.save(User(chatId = chatID))
+            userRepository.save(User(chatId = chatID, iggId = 213L))
         }
     }
 
@@ -16,10 +16,15 @@ class GreetingMessage(chatID: Long, userRepository: UserRepository) : SendMessag
         private const val fireEmojiUnicode = "\uD83D\uDD25"
         val START_MESSAGE: String = """
             $fireEmojiUnicode Привет Принцесса! $fireEmojiUnicode
-            Начни с команды /help, чтобы узнать функционал
+            Для регистрации введи IggID
         """.trimIndent()
+
 
 
     }
 
 }
+/*val START_MESSAGE: String = """
+            $fireEmojiUnicode Привет Принцесса! $fireEmojiUnicode
+            Начни с команды /help, чтобы узнать функционал
+        """.trimIndent()*/

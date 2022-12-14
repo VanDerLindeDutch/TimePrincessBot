@@ -17,9 +17,8 @@ repositories {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
     implementation("org.hibernate:hibernate-validator:8.0.0.Final")
-
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.postgresql:postgresql:42.5.1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")

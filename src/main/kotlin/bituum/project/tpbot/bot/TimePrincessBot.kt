@@ -1,30 +1,33 @@
 package bituum.project.tpbot.bot
 
-import bituum.project.tpbot.command.createKeyboard
-import bituum.project.tpbot.db.DTO.User
 import bituum.project.tpbot.db.Repository.UserRepository
 import bituum.project.tpbot.mesage.GreetingMessage
+import bituum.project.tpbot.mesage.greetingMessageFun
 import jakarta.annotation.PostConstruct
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.telegram.telegrambots.bots.TelegramLongPollingBot
 import org.telegram.telegrambots.meta.TelegramBotsApi
+import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession
+import java.util.Queue
+import java.util.concurrent.ConcurrentLinkedQueue
+
 
 
 @Component
 class TimePrincessBot : TelegramLongPollingBot() {
+    val queue: Queue<Message> = ConcurrentLinkedQueue()
 
     @PostConstruct
-    fun register(){
+    fun register() {
         TelegramBotsApi(DefaultBotSession::class.java).registerBot(this)
     }
 
 
     @Autowired
-    private lateinit var botProperties:BotProperties
+    private lateinit var botProperties: BotProperties
 
     @Autowired
     private lateinit var userRepository: UserRepository;
@@ -36,22 +39,19 @@ class TimePrincessBot : TelegramLongPollingBot() {
         return botProperties.name
     }
 
+    //1380112697
     override fun onUpdateReceived(update: Update) {
-        if(update.hasMessage()){
-
+        if (update.hasMessage()) {
             val message = update.message
-
-
-            when(message.text){
-                "/start"->executeAsync(
-                    createKeyboard(
-                    GreetingMessage(
-                        message.chatId, userRepository)
-                ))
-                "Отправить код"->println("l")
+            if (message.hasText()) {
+                queue.add(message)
+            }
+            when (message.text) {
+                "/start" -> greetingMessageFun(this, message, userRepository)
+                "Отправить код" -> println()
             }
         }
     }
-
-
 }
+
+
