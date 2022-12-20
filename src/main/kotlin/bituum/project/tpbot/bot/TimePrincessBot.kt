@@ -14,25 +14,23 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Message
 import org.telegram.telegrambots.meta.api.objects.Update
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession
-import java.util.Collections
-import java.util.HashSet
-import java.util.Queue
+import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 
 
 @Component
 class TimePrincessBot : TelegramLongPollingBot() {
     val queue: Queue<Message> = ConcurrentLinkedQueue()
-    var activeChatIdSet: MutableSet<Long> = Collections.synchronizedSet(HashSet<Long>());
+    var activeChatIdSet: MutableSet<Long> = Collections.synchronizedSet(HashSet<Long>())
 
     @Autowired
     private lateinit var botProperties: BotProperties
 
     @Autowired
-    private lateinit var userRepository: UserRepository;
+    private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var codeRepository: CodeRepository;
+    private lateinit var codeRepository: CodeRepository
 
     @PostConstruct
     fun register() {

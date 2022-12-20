@@ -1,6 +1,7 @@
 package bituum.project.tpbot.mesage
 
 import bituum.project.tpbot.bot.TimePrincessBot
+import bituum.project.tpbot.command.createKeyboard
 import bituum.project.tpbot.db.Repository.UserRepository
 import bituum.project.tpbot.service.authorization
 import kotlinx.coroutines.CoroutineScope
@@ -19,8 +20,8 @@ class GreetingMessage(
         val START_MESSAGE: String = """
             $fireEmojiUnicode Привет Принцесса! $fireEmojiUnicode
         """.trimIndent()
-        bot.execute(SendMessage(message.chatId.toString(), START_MESSAGE))
         if (userRepository.findUserByChatId(message.chatId) == null) {
+            bot.execute(SendMessage(message.chatId.toString(), START_MESSAGE))
             bot.execute(
                 SendMessage(
                     message.chatId.toString(),
@@ -28,6 +29,7 @@ class GreetingMessage(
                 )
             )
         }else{
+            bot.execute(createKeyboard(SendMessage(message.chatId.toString(), START_MESSAGE)))
             bot.activeChatIdSet.remove(message.chatId)
             return
         }

@@ -4,7 +4,10 @@ import bituum.project.tpbot.bot.TimePrincessBot
 import bituum.project.tpbot.command.Request
 import bituum.project.tpbot.db.DTO.Code
 import bituum.project.tpbot.db.Repository.CodeRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage
 import org.telegram.telegrambots.meta.api.objects.Message
 
@@ -14,7 +17,7 @@ suspend fun sendCodeService(bot: TimePrincessBot, chatId: Long, codeRepository: 
         lateinit var message: Message
         while (true) {
             if (!bot.queue.isEmpty()) {
-                message = bot.queue.peek();
+                message = bot.queue.peek()
                 if (message.chatId == chatId) {
                     bot.queue.remove(message)
                     val code: String = message.text

@@ -1,8 +1,8 @@
 package bituum.project.tpbot.service
 
 import bituum.project.tpbot.bot.TimePrincessBot
-import bituum.project.tpbot.command.RESPONSE_CODE
-import bituum.project.tpbot.command.RESPONSE_CODE.*
+import bituum.project.tpbot.command.RESPONSE_CODE.SUCCESSFUL
+import bituum.project.tpbot.command.RESPONSE_CODE.TO_DROP
 import bituum.project.tpbot.command.Request
 import bituum.project.tpbot.db.DTO.Code
 import bituum.project.tpbot.db.Repository.CodeRepository
@@ -16,14 +16,13 @@ import kotlin.random.Random
 
 suspend fun getCodeService(bot: TimePrincessBot, chatId: Long, codeRepository: CodeRepository, userRepository: UserRepository) =
     coroutineScope {
-        var count = 0;
+        var count = 0
         val list:MutableList<Code> = withContext(Dispatchers.IO) {
             codeRepository.findAll()
         } as MutableList<Code>
         val iggId = withContext(Dispatchers.IO) {
             userRepository.findUserByChatId(chatId)!!.iggId
-        };
-        list.forEach{ println(it) }
+        }
         list.forEach{
             when(Request().activateCode(iggId, it.code)){
                 SUCCESSFUL -> count++

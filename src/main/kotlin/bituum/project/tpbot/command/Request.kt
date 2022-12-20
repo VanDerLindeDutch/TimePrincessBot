@@ -1,14 +1,8 @@
 package bituum.project.tpbot.command
 
-import bituum.project.tpbot.db.Repository.UserRepository
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import org.apache.catalina.User
 import org.json.JSONObject
-import org.json.JSONTokener
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.net.URI
-import java.net.URLEncoder
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
@@ -32,7 +26,6 @@ class Request {
 
     fun activateCode(iggid: Long, cdkey: String): RESPONSE_CODE {
         val response: JSONObject = request(iggid, cdkey)
-        println(response)
         val msg = response.get("msg").toString()
         return if (msg.contains("-51") || msg.contains("-53") || msg.contains("-57"))
             RESPONSE_CODE.TO_DROP
@@ -44,8 +37,7 @@ class Request {
 
     fun isCodeCorrect(iggid: Long, cdkey: String): Boolean {
         val response: JSONObject = request(iggid, cdkey)
-        val msg = response.get("msg").toString();
-        println(response)
+        val msg = response.get("msg").toString()
         if (msg.contains("-51") || msg.contains("-53") || msg.contains("-57") || msg.contains("-54")) {
             return false
         }
@@ -53,7 +45,7 @@ class Request {
     }
 
     private fun request(iggid: Long, cdkey: String = "jOpA"): JSONObject {
-        val client = HttpClient.newBuilder().build();
+        val client = HttpClient.newBuilder().build()
         val request = HttpRequest.newBuilder()
             .uri(URI.create("https://dut.igg.com/event/code?lang=rus/"))
             .POST(HttpRequest.BodyPublishers.ofString(RequestBody(iggid, cdkey).toString()))
