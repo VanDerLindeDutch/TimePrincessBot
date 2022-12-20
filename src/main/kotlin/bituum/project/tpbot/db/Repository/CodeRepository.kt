@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CodeRepository  : CrudRepository<Code, Long> {
+    fun existsCodeByCode(code:String):Boolean;
+
 }

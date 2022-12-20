@@ -31,7 +31,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-allopen:1.7.22")
 
 
-
+// https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm
+    runtimeOnly("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.4.1")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

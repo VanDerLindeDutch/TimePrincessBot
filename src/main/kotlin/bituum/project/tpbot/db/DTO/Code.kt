@@ -9,8 +9,8 @@ data class Code (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    var id: Long? = null,
+    var id: Long = 0,
 
     @Column(name = "code", nullable = false, unique = true , length = 30)
-    var code: String? = null,
+    var code: String = "",
 )

@@ -8,7 +8,7 @@ fun createKeyboard(message: SendMessage):SendMessage{
     message.enableMarkdown(true)
     message.replyMarkup = getReplyMarkup(
         listOf(
-            listOf("Отправить код", "Получить код")
+            listOf("Отправить код", "Активировать коды")
         ))
     return message
 }
