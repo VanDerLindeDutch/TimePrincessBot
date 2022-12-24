@@ -22,6 +22,7 @@ class GetCode(
         if (iggId == null) {
             START_MESSAGE = "Сначало надо зарегистрироваться =( , введи команду /start"
             bot.execute(SendMessage(message.chatId.toString(), START_MESSAGE))
+            bot.activeChatIdSet.remove(message.chatId)
             return
         }
         CoroutineScope(Dispatchers.Default).launch {

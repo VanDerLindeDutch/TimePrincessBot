@@ -23,6 +23,7 @@ class SendCode(
         if (iggId == null) {
             START_MESSAGE = "Сначало надо зарегистрироваться =( , введи команду /start"
             bot.execute(SendMessage(message.chatId.toString(), START_MESSAGE))
+            bot.activeChatIdSet.remove(message.chatId)
             return
         }
         val STAR_UNICODE = "\u0000\u2b50"

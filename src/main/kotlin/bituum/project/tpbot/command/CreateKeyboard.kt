@@ -20,7 +20,6 @@ private fun getReplyMarkup(buttons:List<List<String>>):ReplyKeyboardMarkup{
         val row = KeyboardRow()
         rowButtons.forEach{
             rowButton->row.add(rowButton)
-
         }
         row
     }
